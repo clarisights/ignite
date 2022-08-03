@@ -16,7 +16,7 @@ Apache Ignite Maven Build Instructions
 
 2) Compile and install:
 
-        ./mvnw clean install -Pall-java,all-scala,licenses -DskipTests
+        ./mvnw clean install -Pall-java,all-scala,licenses -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
 
    or if you have built Apache Ignite.NET on the first step use following command:
    (Note that 'doxygen' should be installed before running this command.)
@@ -265,4 +265,3 @@ ZIP:
         zip -r9 apache-ignite-X.X.X-src.zip apache-ignite-X.X.X-src
 GPG:
         gpg --armor --output apache-ignite-X.X.X-src.zip.asc --detach-sig apache-ignite-X.X.X-src.zip
-
