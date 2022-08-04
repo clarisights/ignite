@@ -47,7 +47,7 @@
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.target>17</maven.compiler.target>
 
         <revision>2.13.0</revision>
         <!-- Ignite version will be substituted with the flatten-maven-plugin and used as
@@ -853,9 +853,9 @@
         </profile>
 
         <profile>
-            <id>java-9+</id>
+            <id>java-11</id>
             <activation>
-                <jdk>[1.9,15)</jdk>
+                <jdk>11</jdk>
             </activation>
             <properties>
                 <maven.compiler.source>1.8</maven.compiler.source>
@@ -937,13 +937,13 @@
         </profile>
 
         <profile>
-            <id>java-15+</id>
+            <id>java-17</id>
             <activation>
-                <jdk>[15,)</jdk>
+                <jdk>17</jdk>
             </activation>
             <properties>
                 <maven.compiler.source>1.8</maven.compiler.source>
-                <maven.compiler.target>15</maven.compiler.target>
+                <maven.compiler.target>17</maven.compiler.target>
                 <scala.library.version>2.12.15</scala.library.version>
             </properties>
             <dependencies/>
@@ -995,6 +995,33 @@
                     </plugin>
                 </plugins>
             </build>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-common</artifactId>
+                        <exclusions>
+                            <exclusion>
+                                <!-- This dependency is not available with java 9.-->
+                                <groupId>jdk.tools</groupId>
+                                <artifactId>jdk.tools</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-common</artifactId>
+                        <type>test-jar</type>
+                        <exclusions>
+                            <exclusion>
+                                <!-- This dependency is not available with java 9.-->
+                                <groupId>jdk.tools</groupId>
+                                <artifactId>jdk.tools</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
         </profile>
 
         <profile>
